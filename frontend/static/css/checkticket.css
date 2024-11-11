@@ -121,60 +121,65 @@ body{
 }
 
 .showschedule{
+    
     width: 96%;
     height: 450px;
     margin: 30px;
+    background-color: transparent;
+}
+
+.avls{
+    width: 96%;
+    height: 300px;
+    margin: 30px;
     background-color: #fff;
+    display: flex;
+    justify-content: space-around;
     border-radius: 40px;
 
 }
 
-.showschedule>p {
-    font-size: 25px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    padding-top: 20px;
-    padding-left: 30px;
-
-}
-
-table{
-    border-collapse: collapse;
-    width: 100%;
-    margin: 25px 0;
-    font-size: 20px;
-    min-width: 400px;
-    border-radius:5px 5px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
-    
-}
-
-
-.trainschedule thead tr{
-    background-color: #009879;
-    padding: 5px;
+.alvs{
+    width: 250px;
     color: #fff;
-    text-align: left;
-
-    font-weight: bold;
-}
-
-.trainschedule th,
-.trainschedule td{
-
-    min-width:150px;
-    text-align: left;
-    padding: 12px 15px;
-}
-
-.trainschedule tbody tr{
-    background-color: #fff;
-    border-bottom: 1px solid #dddd;
-    text-align: left;
+    background-color: #009879;
+    text-align:center;
+    height: 200px;
+    margin: 20px;
+    margin-top: 50px;
+    padding: 10px;
+    display:flex;
+    border-radius: 40px;
+    font-size: 20px;
 
 }
 
-.trainschedule tbody tr:nth-of-type(even){
-    background-color: #f3f3f3;
-    text-align: left;
+.alvs>ul{
+    list-style-type: none;
+}
+
+.tname{
+    width: 96%;
+    color: #ffffff;
+    background-color: #009879;
+    text-align: center;
+    margin-left: 30px;
+    margin-bottom: 0;
+    padding: 10px;
+    border-radius: 40px;
+    font-size: 25px;
+
+}
+
+.tnam{
+    width: 96%;
+    color:#009879;
+    background-color:#e7e7e7;
+    text-align: center;
+    margin-left: 30px;
+    margin-bottom: 0;
+    padding: 10px;
+    border-radius: 40px;
+    font-size: 25px;
+
 }

@@ -28,8 +28,13 @@ def Search_train_by_station(connection,data):
 
 def Search_train_by_name(connection,data):
     cursor = connection.cursor()
-    query = ("select train_no,train_name,arrival_time,departure_time,initial_avl from Train_table where train_name = %s")
-    cursor.execute(query,(data["search"],))
+    src = (data["search"],)
+    if "all" in src:
+        query=("select train_no,train_name,arrival_time,departure_time,initial_avl from Train_table")
+        cursor.execute(query)
+    else:
+        query = ("select train_no,train_name,arrival_time,departure_time,initial_avl from Train_table where lower(train_name) = lower(%s)")
+        cursor.execute(query,(data["search"],))
 
     match_trains = []
     for (train_no, train_name, arrival_time,departure_time, initial_avl) in cursor:
@@ -37,25 +42,40 @@ def Search_train_by_name(connection,data):
     
     return match_trains
 
-def Train_schedule(connection,data):
+def Train_schedule_by_name(connection,data):
     cursor = connection.cursor()
-    query = ("select train_no,train_name,route,running_dates from Train_table where train_no = %s ")
+    query = ("select train_no,train_name,route,running_dates from Train_table where lower(train_name) = lower(%s)")
+    cursor.execute(query,(data["train_name"],))
+
+    match_trains = []
+    for(train_no, train_name,route,running_dates) in cursor:
+        match_trains.extend([train_no,train_name,route,running_dates])
+
+    return match_trains
+
+def Train_schedule_by_no(connection,data):
+    cursor = connection.cursor()
+    query = ("select train_no,train_name,route,running_dates from Train_table where train_no = %s")
     cursor.execute(query,(data["train_no"],))
 
     match_trains = []
     for(train_no, train_name,route,running_dates) in cursor:
-        match_trains.append({"train_no":train_no, "train_name":train_name,"route":route, "running_dates":running_dates})
+        match_trains.extend([train_no,train_name,route,running_dates])
 
     return match_trains
 
 
 if __name__ == "__main__":
     connection = make_sql_connection()
-    allrec(connection)
-    data = {"train_no":12345,}
-    print(Train_schedule(connection,data))
 
 
-    # sea = {"search":"Uzhavan"}
-    # print(Search_train_by_name(connection,sea))
+    sea = {"train_name":"Uzhavan",}
+    sa = {"train_no":"12345",}
+    # fe=[]
+    # ku=[]
+    fe = Train_schedule_by_name(connection,sea)
+    ku =Train_schedule_by_no(connection,sa)
+    print(fe)
+    print(ku)
+
   

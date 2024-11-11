@@ -107,3 +107,19 @@ margin-left: 175px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     
 }
+
+.flash{
+    margin: 0;
+
+}
+
+#alert{
+    margin-left: 65px;
+    width: 350px;
+   
+}
+
+.flash_msg{
+    padding: 0;
+    text-align: center;
+}

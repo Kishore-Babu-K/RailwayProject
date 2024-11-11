@@ -30,22 +30,15 @@
 
       <form action="{{url_for('train_schedule')}}" method="POST">
         <div class="input_text">
-            <input type="text" name="train_name" placeholder="Enter Train Name" required/>
+            <input type="text" name="train_name" placeholder="Enter Train Name" required />
             <button type="submit"><i class="fas fa-search"></i>Search</button>
         </div>
       </form>
     </div>
     <div class="showschedule">
-        {% if no_train %}
-            <p class="no-record"><strong>No record found</strong> </p>
-        {% else %}
-            <p><span class="label"><strong>Train No:</strong> </span> {{ scheduledata.train_no }}</p>
-            <p><span class="label"><strong>Train Name:</strong></span> {{ scheduledata.train_name }}</p>
-            <p><span class="label"><strong>Route:</strong></span> {{ scheduledata.route }}</p>
-            <p><span class="label"><strong>Running Dates:</strong></span> {{ scheduledata.running_date }}</p>
-        {% endif %}
-
-
+       
+    </div>
+    
     </div>
 
    </div>

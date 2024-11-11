@@ -1,7 +1,9 @@
 from flask import Flask , render_template, url_for, redirect, request, flash,get_flashed_messages
 from UserDao import login_check , Register_new
-from TrainDao import Search_train_by_station , Search_train_by_name
+from TrainDao import Search_train_by_station , Search_train_by_name, Train_schedule_by_name,Train_schedule_by_no
+from TicketDao import Check_Avl_Price_Name, Check_Avl_Price_No
 from sqlconnection import make_sql_connection
+from ast import literal_eval
 
 
 connection = make_sql_connection()
@@ -19,9 +21,11 @@ def logincheck():
     }
     checkpass = login_check(connection,data)
     if checkpass:
-        return render_template("userhome.html")
+        flash("Login Success","success")
+        return redirect(url_for('homepage'))
     else:
-        return flash("Invalid Login Credentials","error")
+        flash("Invalid Login Credentials","danger")
+        return render_template("loginpage.html")
 
 
 
@@ -78,6 +82,59 @@ def search_train_name():
 
     return render_template("searchtrain.html",trainsinfo = trainsinfo, no_train = no_train)
 
+@app.route("/trainschedule", methods=["POST", "GET"])
+def train_schedule():
+    scheduleinfo = None
+    if request.method == "POST":
+
+        train_no = request.form.get("train_no")
+        train_name = request.form.get("train_name")
+
+        if train_no:
+            data = {"train_no": train_no}
+            scheduleinfo = Train_schedule_by_no(connection, data)
+        elif train_name:
+            data = {"train_name": train_name}
+            scheduleinfo = Train_schedule_by_name(connection, data)
+
+        no_train = len(scheduleinfo) == 0   
+        if no_train:
+            scheduledata = None
+        else:
+            trainno = scheduleinfo[0]
+            trainname = scheduleinfo[1]
+            route = literal_eval(scheduleinfo[2])
+            running = literal_eval(scheduleinfo[3])
+
+            scheduledata = {
+                "train_no": trainno,
+                "train_name": trainname,
+                "route": ' -> '.join(route),
+                "running_date": " | ".join(running) 
+            }
+        print(scheduledata)
+        return render_template("trainschedule.html", scheduledata=scheduledata, no_train=no_train)
+
+
+@app.route("/check_avl_name", methods = ["POST","GET"])
+def check_avl_name():
+    avlinfo = None
+    if request.method == "POST":
+
+        train_no = request.form.get("train_no")
+        train_name = request.form.get("train_name")
+
+        if train_no:
+            data = {"train_no": train_no}
+            avlinfo = Check_Avl_Price_No(connection, data)
+        elif train_name:
+            data = {"train_name": train_name}
+            avlinfo = Check_Avl_Price_Name(connection, data)
+
+        no_train = len(avlinfo) == 0
+        print(avlinfo)
+        return render_template("checkticket.html", avlinfo=avlinfo, no_train=no_train)
+
 
 #Template Renderers
 
@@ -101,10 +158,23 @@ def homepage():
 def search():
     return render_template("searchtrain.html")
 
+@app.route("/schedule")
+def schedule():
+    return render_template("trainschedule1.html")
 
+@app.route("/checkticket")
+def checkticket():
+    return render_template("checkticket.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
     
 if __name__ == "__main__":
 
     app.run(debug=True)
-
 
