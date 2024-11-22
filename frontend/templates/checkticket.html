@@ -14,9 +14,9 @@
     <div class="navbar">
         
         <a href="{{url_for('homepage')}}"><button class="home">Home</button></a>
-        <a href="{{url_for('homepage')}}"><button class="about">About</button></a>
+        <a href="{{url_for('about')}}"><button class="about">About</button></a>
         <a href="{{url_for('search')}}"><button class="search">Search Train</button></a>
-        <a href="{{url_for('homepage')}}"><button class="contact">Contact Us</button></a>
+        <a href="{{url_for('contact')}}"><button class="contact">Contact Us</button></a>
         <a href="{{url_for('logout')}}"><button class="logout">Logout</button></a>
     </div>
     <div class="wrap">
@@ -49,7 +49,7 @@
                         <ul>
                             <p><strong>Sleeper Seats And Cost</strong></p>
                             <li>{{ avl.sleeper }}</li> 
-                            <li>{{ avl.sleeper_price }}</li>
+                            <li>Rs.{{ avl.sleeper_price }}</li>
                         </ul>
                     </div>
 
@@ -57,7 +57,7 @@
                         <ul>
                             <p><strong>Seating Seats And Cost</strong></p>
                             <li>{{ avl.seating }}</li>
-                            <li>{{ avl.seating_price }}</li>
+                            <li>Rs.{{ avl.seating_price }}</li>
                         </ul>
                     </div>
 
@@ -65,7 +65,7 @@
                         <ul>
                              <p><strong>3AC Seats And Cost</strong></p>
                              <li>{{ avl.third_ac }}</li>
-                             <li>{{ avl.third_ac_price }}</li>
+                             <li>Rs.{{ avl.third_ac_price }}</li>
                         </ul>
                     </div>
 
@@ -73,7 +73,7 @@
                         <ul>
                              <p><strong>2AC Seats And Cost</strong></p>
                              <li>{{ avl.second_ac }}</li>
-                             <li>{{ avl.second_ac_price }}</li>
+                             <li>Rs.{{ avl.second_ac_price }}</li>
 
                         </ul>
                     </div>
@@ -82,7 +82,7 @@
                         <ul>
                              <p><strong>1AC Seats And Cost</strong></p>
                              <li>{{ avl.first_ac }}</li>
-                             <li>{{ avl.first_ac_price }}</li>
+                             <li>Rs.{{ avl.first_ac_price }}</li>
                         </ul>
                     </div>
                     {% endfor %}

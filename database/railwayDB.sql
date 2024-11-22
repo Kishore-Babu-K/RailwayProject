@@ -69,7 +69,7 @@ foreign key (train_no) references Train_table(train_no)
 );
 
 create table Price_table (
-train_no int not null,
+train_no int not null,  
 train_name varchar(255),
 sleeper_price int default(0) ,
 seating_price int default(0),
@@ -92,3 +92,7 @@ insert into MasterList_table values ("3376435567","Kishore Babu",18,"2005-10-01"
 insert into Ticket_info_table values ("22334456P",13,"SL","2024-11-01","3376435567","Kishore Babu",18,123456,"uzhavan","booked");
 
 select user_name, pass_word from User_table;
+
+
+
+

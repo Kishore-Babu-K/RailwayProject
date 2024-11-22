@@ -47,8 +47,14 @@ def signup():
         "email" : email
     }
 
-    Register_new(connection,data)
-    return render_template("loginpage.html")
+    result = Register_new(connection,data)
+    if result["success"]:
+        flash("User Added Successfully","success")
+        return render_template("loginpage.html")
+    else:
+        flash("User id Already Exists","danger")
+        return redirect(url_for('register'))
+
 
 @app.route("/searchtrain", methods = ["POST","GET"])
 def search_train_station():
@@ -173,6 +179,8 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+    
+    
     
 if __name__ == "__main__":
 

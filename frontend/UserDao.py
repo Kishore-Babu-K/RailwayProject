@@ -1,6 +1,5 @@
 from sqlconnection import make_sql_connection
 
-
 def allrec(connection):
     cursor = connection.cursor()
     cursor.execute("select * from User_table")
@@ -34,10 +33,16 @@ def Register_new(connection,data):
     
     values = (data["user_id"], data["user_name"], data["pass_word"], data["role_of_user"], data["phone_num"], data["email"])
     
-    cursor.execute(query, values)
-    connection.commit()
+    try:
+        cursor.execute(query, values)
+        connection.commit()
+        print("user added successfully")
+        return {"success": True}
+        
+    except Exception as e:
+        print("Error in user_id")
+        return {"success":False}
 
-    print("user added successfully")
 
 
 
@@ -45,8 +50,7 @@ def Register_new(connection,data):
 if __name__ == "__main__":
     connection = make_sql_connection()
     allrec(connection)
-    data = {"user_id":"hello12","user_name":"Babu","pass_word":"kish1","role_of_user":"user","phone_num":91,"email":"babu@gmail.com"}
+    data = {"user_id":"kish10","user_name":"Babu","pass_word":"kish1","role_of_user":"user","phone_num":91,"email":"babu@gmail.com"}
     #print(login_check(connection,data))
     Register_new(connection,data)
-    allrec(connection)
 
